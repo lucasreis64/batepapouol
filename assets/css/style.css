@@ -1,0 +1,51 @@
+.body {
+    font-family: 'Roboto';
+}
+
+.escondido {
+    display: none !important;
+}
+.conteudo-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    top: 15%;
+    gap: 90px;
+}
+
+.conteudo-login img {
+    width: 130px;
+    height: 92px;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.nome {
+    border: 1px solid #D7D7D7;
+    width: 261px;
+    height: 54px;
+    border-radius: 4px;
+    text-align: center;
+    color: #AEAEAE;
+    font-size: 18px;
+    outline: 0;
+}
+
+.entrar {
+    width: 109px;
+    height: 45px;
+    border-radius: 9px;
+    background-color: #E7E7E7;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    color: #696969;
+}
