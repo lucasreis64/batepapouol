@@ -88,15 +88,15 @@ function retorno(mensagem) {
         const msg = document.createElement('div');
         msg.classList.add('mensagem');
         if (mensagem[cont].type === 'message') {
-            msg.innerHTML = `(${mensagem[cont].time}) <span>${mensagem[cont].from}</span> para <span>${mensagem[cont].to}</span>: ${mensagem[cont].text}`;
+            msg.innerHTML = `<span class = "horacinza">(${mensagem[cont].time})</span> <span>${mensagem[cont].from}</span> para <span>${mensagem[cont].to}</span>: ${mensagem[cont].text}`;
         }
         if (mensagem[cont].type === 'status') {
             msg.classList.add('cinza');
-            msg.innerHTML = `(${mensagem[cont].time}) <span>${mensagem[cont].from}</span> ${mensagem[cont].text}`;
+            msg.innerHTML = `<span class = "horacinza">(${mensagem[cont].time})</span> <span>${mensagem[cont].from}</span> ${mensagem[cont].text}`;
         }
         if (mensagem[cont].type === 'private_message') {
             msg.classList.add('rosa');
-            msg.innerHTML = `(${mensagem[cont].time}) <span>${mensagem[cont].from}</span> reservadamente para <span>${mensagem[cont].to}</span>: ${mensagem[cont].text}`;
+            msg.innerHTML = `<span class = "horacinza"(${mensagem[cont].time})</span> <span>${mensagem[cont].from}</span> reservadamente para <span>${mensagem[cont].to}</span>: ${mensagem[cont].text}`;
         }
         papo.appendChild(msg);
         if (cont===mensagem.length-1){

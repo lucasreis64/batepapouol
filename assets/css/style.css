@@ -87,6 +87,7 @@ body {
 .mensagem {
     align-items: center;
     padding: 12px 9px;
+    font-size: 14px;
     background-color: white;
 }
 
@@ -99,7 +100,7 @@ body {
 }
 
 span {
-    font-weight: 700 !important;
+    font-weight: 700;
     margin: 0px 7px;
 }
 
@@ -135,4 +136,10 @@ span {
 
 .fundo {
     background-color: #F3F3F3;
+}
+
+.horacinza{
+    color: #AAAAAA !important;
+    font-weight: 400 !important;
+    margin: 0px 0px !important;
 }
