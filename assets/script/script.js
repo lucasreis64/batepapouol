@@ -35,5 +35,5 @@ function online () {
 }
 
 function situ () {
-    console.log('Status: online');
+    console.log('Status: Online');
 }
