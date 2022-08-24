@@ -28,7 +28,7 @@ body {
     font-size: 42px;
 }
 
-.escondido {
+.escondido, .oculto {
     display: none !important;
 }
 
@@ -101,7 +101,7 @@ body {
 
 span {
     font-weight: 700;
-    margin: 0px 7px;
+    margin: 0px 2px;
 }
 
 .bottombar {
@@ -142,4 +142,80 @@ span {
     color: #AAAAAA !important;
     font-weight: 400 !important;
     margin: 0px 0px !important;
+}
+
+.margin0{
+    margin-right: 0px;
+}
+
+.barralateral{
+    width: 100%;
+    height: 100%;
+}
+
+.fume{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+}
+
+.conteudo{
+    padding: 0 28px;
+    position: fixed;
+    width: 70%;
+    height: 100%;
+    top:0;
+    right: 0;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.conteudo .texto{
+    text-align: center;
+    padding: 32px 0px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.publico,.reservado{
+    display: flex;
+    gap: 7px;
+    font-size: 16px;
+    align-items: center;
+}
+
+.privacidade ion-icon{
+    font-size: 22px;
+}
+
+.privacidade{
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
+
+.usuarios>div{
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+.usuarios{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 16px;
+    height: 20%;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+.usuarios>div>div{
+    font-size: 16px;
+}
+
+.usuarios>div>ion-icon{
+    font-size: 22px;
 }

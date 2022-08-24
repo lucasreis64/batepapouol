@@ -14,7 +14,7 @@
 <body>
     <div class="topbar escondido">
         <img src="./assets/imagens/uol.png" alt="logo-uol">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon onclick="mostrarLateral()" name="people"></ion-icon>
     </div>
     <div class="conteudo-login">
         <img src="./assets/imagens/uol.png" alt="logo-uol">
@@ -29,10 +29,34 @@
         <input class="enviada" type="text" placeholder="Escreva aqui...">
         <ion-icon onclick="enviarMensagem()" name="paper-plane-outline"></ion-icon>
     </div>
+    <div class="barralateral oculto">
+        <div class="fume" onclick="fecharLateral()"></div>
+        <div class="conteudo">
+            <div class="texto">Escolha um contato para enviar mensagem:</div>
+            <div class="usuarios">
+                <div>
+                    <ion-icon name="people"></ion-icon>
+                    <div>Todos</div>
+                </div>
+            </div>
+            <div class="texto">Escolha a visibilidade:</div>
+            <div class="privacidade" >
+                <div class="publico">
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <div>Público</div>
+                </div>
+                <div class="reservado">
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <div>Reservadamente</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./assets/script/script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 
 </body>
 
