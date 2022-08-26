@@ -41,6 +41,7 @@ function pegarNome() {
 function deuErro() {
     const namer = usuario.name.trim();
     console.log(namer);
+    
     if (namer === '') {
         alert('Não é permitido inserir nomes em branco!');
     } else {
@@ -86,7 +87,10 @@ function userName() {
         name: nome
     };
     console.log(usuario);
-    promessa = axios.post(nomeurl, usuario);
+    if (usuario.name.charAt(0)===' ' || usuario.name.charAt(usuario.name.length - 1)===' '){
+        alert('Proibido digitar espaço antes ou depois de inserir o nome!');
+    }
+    else{promessa = axios.post(nomeurl, usuario);}
 }
 
 function online() {
