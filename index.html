@@ -26,26 +26,29 @@
     <div class="chat escondido">
     </div>
     <div class="bottombar escondido">
-        <input class="enviada" type="text" placeholder="Escreva aqui...">
-        <ion-icon onclick="enviarMensagem()" name="paper-plane-outline"></ion-icon>
+        <div>
+            <input class="enviada" type="text" placeholder="Escreva aqui...">
+            <ion-icon onclick="enviarMensagem()" name="paper-plane-outline"></ion-icon>
+        </div>
+        <div class="tipoEnvio"></div>
     </div>
     <div class="barralateral oculto">
         <div class="fume" onclick="fecharLateral()"></div>
         <div class="conteudo">
             <div class="texto">Escolha um contato para enviar mensagem:</div>
             <div class="usuarios">
-                <div>
+                <div class="todos" id="todos">
                     <ion-icon name="people"></ion-icon>
                     <div>Todos</div>
                 </div>
             </div>
             <div class="texto">Escolha a visibilidade:</div>
-            <div class="privacidade" >
-                <div class="publico">
-                    <ion-icon name="lock-closed"></ion-icon>
+            <div class="privacidade">
+                <div onclick="selecionarVisibilidade(this)" class="publico">
+                    <ion-icon name="lock-open"></ion-icon>
                     <div>Público</div>
                 </div>
-                <div class="reservado">
+                <div onclick="selecionarVisibilidade(this)" class="reservado">
                     <ion-icon name="lock-closed"></ion-icon>
                     <div>Reservadamente</div>
                 </div>

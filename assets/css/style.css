@@ -93,6 +93,8 @@ body {
     padding: 12px 9px;
     font-size: 14px;
     background-color: white;
+    box-sizing: border-box !important;
+    word-wrap: break-word;
 }
 
 .rosa {
@@ -103,15 +105,15 @@ body {
     background-color: #DCDCDC;
 }
 
-span {
+strong {
     font-weight: 700;
-    margin: 0px 2px;
 }
 
 .bottombar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    
     padding: 25px 17px;
     position: fixed;
     width: 100%;
@@ -122,16 +124,29 @@ span {
     background-color: white;
     filter: drop-shadow(0 0px 4px lightgrey);
 }
+.bottombar div:nth-child(1){
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tipoEnvio{
+    font-size: 14px;
+    font-weight: 300;
+    color: #505050;
+    text-align: left;
+}
 
 .bottombar input {
     border: none;
     width: 261px;
-    height: 54px;
+    height: 50px;
     text-align: left;
     color: black;
     font-style: italic;
     font-size: 18px;
     outline: 0;
+    box-sizing: border-box;
 }
 
 .bottombar ion-icon {
@@ -200,12 +215,17 @@ span {
     display: flex;
     flex-direction: column;
     gap:15px;
+    
+}
+.privacidade>div{
+    position: relative;
 }
 
 .usuarios>div{
     display: flex;
     gap: 7px;
     align-items: center;
+    position: relative;
 }
 .usuarios{
     display: flex;
@@ -218,8 +238,19 @@ span {
 }
 .usuarios>div>div{
     font-size: 16px;
+    box-sizing: border-box;
 }
 
 .usuarios>div>ion-icon{
     font-size: 22px;
+}
+
+.verde{
+    color: green;
+}
+
+.check{
+    position:absolute;
+    bottom: 10;
+    right: 0;
 }

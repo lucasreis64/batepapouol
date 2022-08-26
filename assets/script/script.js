@@ -4,19 +4,21 @@ const mensagemurl = 'https://mock-api.driven.com.br/api/v6/uol/messages';
 const login = document.querySelector('.conteudo-login');
 const papo = document.querySelector('.chat');
 const enviada = document.querySelector('.enviada');
-const todos = document.querySelector('.usuarios>div');
+let todos = document.querySelector('.usuarios>div');
 const bottom = document.querySelector('.bottombar');
 const inferior = document.querySelector('.login');
 const lateral = document.querySelector('.barralateral');
 const usuarios = document.querySelector('.usuarios');
 const tipoenvio = document.querySelector('.tipoEnvio');
-let selecionado;
+const privacidade = document.querySelector('.privacidade');
+let ultimoselecionado;
+let selecionado = '';
 
 let envio = {
-    to: "Todos",
+    to: 'Todos',
     type: "message",
     from: '',
-    text:''
+    text: ''
 };
 let promessa, usuario, entry = 0;
 let msganterior = [];
@@ -37,7 +39,13 @@ function pegarNome() {
 }
 
 function deuErro() {
-    alert('Nome já está em uso, tente novamente!');
+    const namer = usuario.name.trim();
+    console.log(namer);
+    if (namer === '') {
+        alert('Não é permitido inserir nomes em branco!');
+    } else {
+        alert('Nome já está em uso, tente novamente!');
+    }
     document.addEventListener('keydown', ola);
 }
 
@@ -98,6 +106,7 @@ function carregarMensagens() {
 function retorno(mensagem) {
     deletar(papo);
     mensagem = mensagem.data;
+    console.log(mensagem);
     for (let cont = 0; cont < mensagem.length; cont++) {
         const msg = document.createElement('div');
         msg.classList.add('mensagem');
@@ -112,9 +121,11 @@ function retorno(mensagem) {
             msg.classList.add('rosa');
             msg.innerHTML = `<strong class = "horacinza">(${mensagem[cont].time})</strong> <strong>${mensagem[cont].from}</strong> reservadamente para <strong class="margin0">${mensagem[cont].to}</strong>: ${mensagem[cont].text}`;
         }
-        papo.appendChild(msg);
-        if ((cont === mensagem.length - 1 && msganterior !== mensagem.data)) {
-            msg.scrollIntoView();
+        if ((mensagem[cont].to===usuario.name || mensagem[cont].from===usuario.name) || mensagem[cont].to==='Todos') {
+            papo.appendChild(msg);
+            if ((cont === mensagem.length - 1 && msganterior !== mensagem.data)) {
+                msg.scrollIntoView();
+            }
         }
     }
     msganterior = mensagem;
@@ -128,18 +139,24 @@ function deletar(papo) {
 
 function enviarMensagem() {
     selecionado = document.querySelector(('.selecionado'));
-    envio.from= usuario.name;
-    envio.text= enviada.value;
-    if (selecionado !== null) {
-        if (selecionado.classList.contains('publico') === true) {}
-        if (selecionado.classList.contains('reservado') === true) {
-            envio.type = 'private_message';
-        }
-    }
+    envio.from = usuario.name;
+    envio.text = enviada.value;
+    /*     if (selecionado !== null) {
+            if (selecionado.classList.contains('publico') === true) {}
+            if (selecionado.classList.contains('reservado') === true) {
+            }
+        } */
     console.log(envio);
     const teste = envio.text.trim();
-    const enviar = axios.post(mensagemurl, envio);
-    enviar.then(carregarMensagens);
+    let enviar;
+    const reservado = document.querySelector('.reservado');
+    todos = document.querySelector('.todos');
+    if (reservado.classList.contains('selecionado') && todos.classList.contains('selecionado')) {
+        alert("Você não pode mandar uma mensagem privada para todos!");
+    } else {
+        enviar = axios.post(mensagemurl, envio);
+        enviar.then(carregarMensagens);
+    }
     if (teste !== '') {
         enviar.catch(atualizar);
     } else {
@@ -151,11 +168,6 @@ function enviarMensagem() {
 function atualizar() {
     alert('Você não está mais na sala! Aperte "ok" para entrar novamente.');
     window.location.reload();
-}
-
-function envioReservado() {
-
-
 }
 
 function alertar() {
@@ -182,12 +194,13 @@ function usuariosOnline() {
     users.then(mostrarParticipantes);
     users.catch(deuErro);
 }
+
 function mostrarParticipantes(part) {
     part = part.data;
     console.log(part);
-
     deletar(usuarios);
     usuarios.appendChild(todos);
+    todos.addEventListener('click', selecionarUsuario);
     for (let cont = 0; cont < part.length; cont++) {
         const divi = document.createElement('div');
         const icon = document.createElement('ion-icon');
@@ -197,13 +210,46 @@ function mostrarParticipantes(part) {
         usuarios.appendChild(divi);
         divi.appendChild(icon);
         divi.appendChild(divitexto);
-        divi.id=part[cont].name;
-        divi.addEventListener('click',selecionarUsuario);
+        divi.id = part[cont].name;
+        divi.addEventListener('click', selecionarUsuario);
+        if (ultimoselecionado === divi.id) {
+            selecionarUsuarioClone(divi);
+        }
     }
 }
 
-function selecionarUsuario(){
-    this.style.backgroundColor = 'blue';
+function selecionarUsuario() {
+    const selecionadousuario = usuarios.querySelectorAll(('.selecionado'));
+    selecionadousuario.forEach(removerCheck);
+    this.classList.add('selecionado');
+    const icon = document.createElement('ion-icon');
+    icon.setAttribute('name', 'checkmark');
+    icon.classList.add('verde', 'check');
+    this.appendChild(icon);
+    envio.to = this.id;
+    const reservado = document.querySelector('.reservado');
+    if (reservado.classList.contains('selecionado') === true) {
+        console.log('oi')
+        tipoenvio.innerHTML = `Enviando para ${envio.to} (reservadamente)`;
+    }
+    ultimoselecionado = this.id;
+}
+
+function selecionarUsuarioClone(esse) {
+    const selecionadousuario = usuarios.querySelectorAll(('.selecionado'));
+    selecionadousuario.forEach(removerCheck);
+    esse.classList.add('selecionado');
+    const icon = document.createElement('ion-icon');
+    icon.setAttribute('name', 'checkmark');
+    icon.classList.add('verde', 'check');
+    esse.appendChild(icon);
+    envio.to = esse.id;
+    const reservado = document.querySelector('.reservado');
+    if (reservado.classList.contains('selecionado') === true) {
+        console.log('oi')
+        tipoenvio.innerHTML = `Enviando para ${envio.to} (reservadamente)`;
+    }
+    ultimoselecionado = esse.id;
 }
 
 
@@ -212,8 +258,8 @@ function fecharLateral() {
 }
 
 function selecionarVisibilidade(esse) {
-    selecionado = document.querySelectorAll(('.selecionado'));
-    selecionado.forEach(removerCheck);
+    const selecionadoprivado = privacidade.querySelectorAll(('.selecionado'));
+    selecionadoprivado.forEach(removerCheck);
     esse.classList.add('selecionado');
     const icon = document.createElement('ion-icon');
     icon.setAttribute('name', 'checkmark');
@@ -221,11 +267,16 @@ function selecionarVisibilidade(esse) {
     esse.appendChild(icon);
     if (esse.classList.contains('reservado') === true) {
         tipoenvio.innerHTML = `Enviando para ${envio.to} (reservadamente)`;
+        envio.type = 'private_message';
+    }
+    if (esse.classList.contains('publico') === true) {
+        tipoenvio.innerHTML = ``;
+        envio.type = 'message';
     }
 }
 
 function removerCheck(este) {
-    const check = document.querySelector('.check');
+    const check = este.querySelector('.check');
     console.log(este);
     este.classList.remove('selecionado');
     este.removeChild(check);
