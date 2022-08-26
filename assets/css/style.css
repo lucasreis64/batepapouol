@@ -30,7 +30,8 @@ body {
     font-size: 42px;
 }
 
-.escondido, .oculto {
+.escondido,
+.oculto {
     display: none !important;
 }
 
@@ -55,6 +56,12 @@ body {
     flex-direction: column;
     gap: 15px;
     align-items: center;
+    position: relative;
+}
+
+.carregar {
+    width: 130px;
+    height: 130px;
 }
 
 .nome {
@@ -113,7 +120,6 @@ strong {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
     padding: 25px 17px;
     position: fixed;
     width: 100%;
@@ -124,13 +130,14 @@ strong {
     background-color: white;
     filter: drop-shadow(0 0px 4px lightgrey);
 }
-.bottombar div:nth-child(1){
+
+.bottombar div:nth-child(1) {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.tipoEnvio{
+.tipoEnvio {
     font-size: 14px;
     font-weight: 300;
     color: #505050;
@@ -157,22 +164,22 @@ strong {
     background-color: #F3F3F3;
 }
 
-.horacinza{
+.horacinza {
     color: #AAAAAA !important;
     font-weight: 400 !important;
     margin: 0px 0px !important;
 }
 
-.margin0{
+.margin0 {
     margin-right: 0px;
 }
 
-.barralateral{
+.barralateral {
     width: 100%;
     height: 100%;
 }
 
-.fume{
+.fume {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -182,52 +189,55 @@ strong {
     left: 0;
 }
 
-.conteudo{
+.conteudo {
     padding: 0 28px;
     position: fixed;
     width: 70%;
     height: 100%;
-    top:0;
+    top: 0;
     right: 0;
     background-color: white;
     box-sizing: border-box;
 }
 
-.conteudo .texto{
+.conteudo .texto {
     text-align: center;
     padding: 32px 0px;
     font-size: 16px;
     font-weight: bold;
 }
 
-.publico,.reservado{
+.publico,
+.reservado {
     display: flex;
     gap: 7px;
     font-size: 16px;
     align-items: center;
 }
 
-.privacidade ion-icon{
+.privacidade ion-icon {
     font-size: 22px;
 }
 
-.privacidade{
+.privacidade {
     display: flex;
     flex-direction: column;
-    gap:15px;
-    
+    gap: 15px;
+
 }
-.privacidade>div{
+
+.privacidade>div {
     position: relative;
 }
 
-.usuarios>div{
+.usuarios>div {
     display: flex;
     gap: 7px;
     align-items: center;
     position: relative;
 }
-.usuarios{
+
+.usuarios {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -236,21 +246,44 @@ strong {
     box-sizing: border-box;
     overflow: scroll;
 }
-.usuarios>div>div{
+
+.usuarios>div>div {
     font-size: 16px;
     box-sizing: border-box;
 }
 
-.usuarios>div>ion-icon{
+.usuarios>div>ion-icon {
     font-size: 22px;
 }
 
-.verde{
+.verde {
     color: green;
 }
 
-.check{
-    position:absolute;
+.check {
+    position: absolute;
     bottom: 10;
     right: 0;
+}
+
+.avisoaparecido {
+    opacity: 1 !important;
+    transition: opacity 1s;
+}
+.avisoescondido {
+    position: absolute;
+    opacity: 0;
+    top: -70px;
+    left: 30px;
+    width: 120px;
+    height: 80px;
+    transition: opacity 1s;
+    z-index: 1;
+}
+.container{
+    position: relative;
+}
+.container .avisoescondido{
+    top:-140px;
+    left: 170px;
 }

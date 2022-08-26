@@ -11,6 +11,14 @@ const lateral = document.querySelector('.barralateral');
 const usuarios = document.querySelector('.usuarios');
 const tipoenvio = document.querySelector('.tipoEnvio');
 const privacidade = document.querySelector('.privacidade');
+const container = document.querySelector('.container');
+const nomebranco="./assets/imagens/nomebranco.png";
+const nomeusado="./assets/imagens/nomeusado.png";
+const proibidoespaco="./assets/imagens/proibidoespaco.png";
+const privadatodos="./assets/imagens/privadatodos.png";
+const mensagembranco="./assets/imagens/mensagembranco.png";
+const entrarnovamente="./assets/imagens/entrarnovamente.png";
+
 let ultimoselecionado;
 let selecionado = '';
 
@@ -43,9 +51,9 @@ function deuErro() {
     console.log(namer);
     
     if (namer === '') {
-        alert('Não é permitido inserir nomes em branco!');
+        aviso(nomebranco, inferior);
     } else {
-        alert('Nome já está em uso, tente novamente!');
+        aviso(nomeusado, inferior);
     }
     document.addEventListener('keydown', ola);
 }
@@ -58,6 +66,7 @@ function carregamento() {
     const textoinferior = document.createElement('div');
     carregar.src = './assets/imagens/carregando.gif';
     textoinferior.innerHTML = 'Entrando...';
+    carregar.classList.add('carregar');
     inferior.appendChild(carregar);
     inferior.appendChild(textoinferior);
     setTimeout(chat, 3000);
@@ -88,7 +97,7 @@ function userName() {
     };
     console.log(usuario);
     if (usuario.name.charAt(0)===' ' || usuario.name.charAt(usuario.name.length - 1)===' '){
-        alert('Proibido digitar espaço antes ou depois de inserir o nome!');
+        aviso(proibidoespaco, inferior);
     }
     else{promessa = axios.post(nomeurl, usuario);}
 }
@@ -175,7 +184,7 @@ function atualizar() {
 }
 
 function alertar() {
-    alert('Mensagem em branco! Tente novamente!');
+    aviso(mensagembranco, container);
 }
 
 enviada.addEventListener('keydown', enter);
@@ -285,3 +294,14 @@ function removerCheck(este) {
     este.classList.remove('selecionado');
     este.removeChild(check);
 }
+
+function aviso(source,inferior){
+    const img = document.createElement('img');
+    img.src=source;
+    inferior.appendChild(img);
+    img.classList.add('avisoescondido');console.log(img);
+    setTimeout(() => { img.classList.add('avisoaparecido');}, 200);
+    setTimeout(() => { img.classList.remove('avisoaparecido');}, 2000);
+
+}
+
