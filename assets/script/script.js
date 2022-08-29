@@ -228,7 +228,7 @@ function enter(event) {
 
 function mostrarLateral() {
     usuariosOnline();
-    setInterval(usuariosOnline, 5000);
+    setInterval(usuariosOnline, 10000);
 
     lateral.classList.remove('oculto');
 }
