@@ -12,15 +12,16 @@ const usuarios = document.querySelector('.usuarios');
 const tipoenvio = document.querySelector('.tipoEnvio');
 const privacidade = document.querySelector('.privacidade');
 const container = document.querySelector('.container');
-const nomebranco="./assets/imagens/nomebranco.png";
-const nomeusado="./assets/imagens/nomeusado.png";
-const proibidoespaco="./assets/imagens/proibidoespaco.png";
-const privadatodos="./assets/imagens/privadatodos.png";
-const mensagembranco="./assets/imagens/mensagembranco.png";
-const entrarnovamente="./assets/imagens/entrarnovamente.png";
+const nomebranco = "./assets/imagens/nomebranco.png";
+const nomeusado = "./assets/imagens/nomeusado.png";
+const proibidoespaco = "./assets/imagens/proibidoespaco.png";
+const privadatodos = "./assets/imagens/privadatodos.png";
+const mensagembranco = "./assets/imagens/mensagembranco.png";
+const entrarnovamente = "./assets/imagens/entrarnovamente.png";
 
 let ultimoselecionado;
 let selecionado = '';
+let teladecarregamento = 0;
 
 let envio = {
     to: 'Todos',
@@ -49,7 +50,7 @@ function pegarNome() {
 function deuErro() {
     const namer = usuario.name.trim();
     console.log(namer);
-    
+
     if (namer === '') {
         aviso(nomebranco, inferior);
     } else {
@@ -69,19 +70,16 @@ function carregamento() {
     carregar.classList.add('carregar');
     inferior.appendChild(carregar);
     inferior.appendChild(textoinferior);
+    chat();
     setTimeout(chat, 3000);
+    carregarMensagens();
     setInterval(carregarMensagens, 3000);
     //carregarMensagens();
 }
 
 function chat() {
-    setInterval(online, 5000);
-    escondido = document.querySelectorAll('.escondido');
-    escondido.forEach(mostrar);
-
-    login.classList.add('escondido');
-    document.body.classList.add('fundo');
-
+    online();
+    setInterval(online, 10000);
 }
 
 function mostrar(item) {
@@ -96,10 +94,11 @@ function userName() {
         name: nome
     };
     console.log(usuario);
-    if (usuario.name.charAt(0)===' ' || usuario.name.charAt(usuario.name.length - 1)===' '){
+    if (usuario.name.charAt(0) === ' ' || usuario.name.charAt(usuario.name.length - 1) === ' ') {
         aviso(proibidoespaco, inferior);
+    } else {
+        promessa = axios.post(nomeurl, usuario);
     }
-    else{promessa = axios.post(nomeurl, usuario);}
 }
 
 function online() {
@@ -121,6 +120,31 @@ function retorno(mensagem) {
     mensagem = mensagem.data;
     console.log(mensagem);
     for (let cont = 0; cont < mensagem.length; cont++) {
+/*         
+        let hora=[],copia=[];
+        hora[0]=mensagem[cont].time[0];
+        hora[1]=mensagem[cont].time[1];
+        console.log(hora);
+        if(hora[0]==='0'){hora = parseInt(hora[1]);}
+        else{hora = parseInt(hora);}
+        console.log(hora);
+        hora = hora - 3;
+        console.log(hora);
+        if (hora<0){
+            hora+=12;
+        }
+        hora = hora.toString();
+        console.log(hora);
+        if(hora.length<2){hora='0'+hora;}
+        console.log('length:',mensagem[cont].time.length);
+        copia[0]=hora[0];
+        copia[1]=hora[1];
+        
+        for(let cont1=2;cont1<mensagem[cont].time.length;cont1++){
+            copia[cont1]=mensagem[cont].time[cont1];
+        }   
+        copia = copia.replace(",", ""); */
+
         const msg = document.createElement('div');
         msg.classList.add('mensagem');
         if (mensagem[cont].type === 'message') {
@@ -134,7 +158,7 @@ function retorno(mensagem) {
             msg.classList.add('rosa');
             msg.innerHTML = `<strong class = "horacinza">(${mensagem[cont].time})</strong> <strong>${mensagem[cont].from}</strong> reservadamente para <strong class="margin0">${mensagem[cont].to}</strong>: ${mensagem[cont].text}`;
         }
-        if ((mensagem[cont].to===usuario.name || mensagem[cont].from===usuario.name) || mensagem[cont].to==='Todos') {
+        if ((mensagem[cont].to === usuario.name || mensagem[cont].from === usuario.name) || mensagem[cont].to === 'Todos') {
             papo.appendChild(msg);
             if ((cont === mensagem.length - 1 && msganterior !== mensagem.data)) {
                 msg.scrollIntoView();
@@ -142,6 +166,13 @@ function retorno(mensagem) {
         }
     }
     msganterior = mensagem;
+    if (teladecarregamento === 0) {
+        escondido = document.querySelectorAll('.escondido');
+        escondido.forEach(mostrar);
+        document.body.classList.add('fundo');
+        login.classList.add('escondido');
+    }
+    teladecarregamento++;
 }
 
 function deletar(papo) {
@@ -295,13 +326,17 @@ function removerCheck(este) {
     este.removeChild(check);
 }
 
-function aviso(source,inferior){
+function aviso(source, inferior) {
     const img = document.createElement('img');
-    img.src=source;
+    img.src = source;
     inferior.appendChild(img);
-    img.classList.add('avisoescondido');console.log(img);
-    setTimeout(() => { img.classList.add('avisoaparecido');}, 200);
-    setTimeout(() => { img.classList.remove('avisoaparecido');}, 2000);
+    img.classList.add('avisoescondido');
+    console.log(img);
+    setTimeout(() => {
+        img.classList.add('avisoaparecido');
+    }, 200);
+    setTimeout(() => {
+        img.classList.remove('avisoaparecido');
+    }, 2000);
 
 }
-
