@@ -79,7 +79,7 @@ function carregamento() {
 
 function chat() {
     online();
-    setInterval(online, 10000);
+    setInterval(online, 5000);
 }
 
 function mostrar(item) {
